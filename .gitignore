@@ -1,0 +1,9 @@
+.idea
+*.gz
+*.zip
+*.7z
+*.bz2
+*.csv
+*.tsv
+*.txt
+*.pickle
