@@ -2,7 +2,6 @@
 
 from functools import lru_cache
 
-import numpy as np
 import pandas as pd
 from scipy.sparse import coo_matrix
 from tqdm import tqdm
@@ -53,19 +52,6 @@ class Sparse3DTensor(object):
 
     def rowcol_nz(self, row, col):
         return self.t[row, col * self.step:(col + 1) * self.step].nonzero()[1]
-
-
-# rows = np.array([1, 1, 1, 1])
-# cols = np.array([0, 1, 0, 0])
-# vals = np.array([2, 2, 1, 0])
-#
-# st = Sparse3DTensor((2, 2, 3), ((rows, cols), vals))
-#
-# print(st.row_nz(0))
-# print(st.row_nz(1))
-# print(st.col_nz(0))
-# print(st.col_nz(1))
-# print(st.rowcol_nz(1, 0))
 
 
 def assertions2triples(filepath="data/russian-conceptnet.tsv"):
