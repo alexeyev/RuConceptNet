@@ -4,5 +4,5 @@ wget https://s3.amazonaws.com/conceptnet/downloads/2019/edges/conceptnet-asserti
 gunzip conceptnet-assertions-5.7.0.csv.gz
 mkdir data
 grep $'/ru/\S*\t\S*/ru/' conceptnet-assertions-5.7.0.csv > data/russian-conceptnet.tsv
-python compressor.py
+python conceptnet/compressor.py
 # rm conceptnet-assertions-5.7.0.csv*
