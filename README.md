@@ -1,5 +1,6 @@
 # RussianConceptNet
-ConceptNet 5.7, Russian part extraction scripts + fast access to relations
+ConceptNet 5.7 (Russian part) extraction scripts + fast access to relations. Note: a simple modification of the 
+preprocessing script allows to build a queryable graph of **any other subset of ConceptNet**.
 
 ### Preparations
 
@@ -8,21 +9,26 @@ a 3-dimensional array (source, target, relation) stored as a single sparse SciPy
 
 ### Usage
 
-```pythonstub
-from conceptnet import ConceptNet
-
-cn = ConceptNet()
-print(cn.get_targets("красота"))
-print(cn.get_sources("красота"))
-print(cn.check_pair("человек", "зверь"))
-print(cn.check_pair("зверь", "человек"))
 ```
+>>> from conceptnet import ConceptNet
+>>> cn = ConceptNet()
+>>> cn.get_targets("алкоголь")
+[('этиловый_спирт', {'Synonym'}), ('спиртной_напиток', {'Synonym'}), ('алкогольный', {'RelatedTo'}), ('алкоголик', {'RelatedTo'}), ('спирт', {'Synonym'}), ('алкоголизация', {
+'RelatedTo'})]
 
-### 
+>>> cn.get_sources("йога")
+[('йоги', {'FormOf'}), ('йогу', {'FormOf'}), ('йогический', {'RelatedTo'}), ('йогою', {'FormOf'}), ('йогой', {'FormOf'}), ('йог', {'RelatedTo'}), ('йоге', {'FormOf'})]
+
+>>> cn.check_pair("человек", "зверь")
+(['DistinctFrom'], [])
+
+>>> cn.check_pair("зверь", "человек")
+([], ['DistinctFrom'])
+```
 
 ## Citing
 
-ConceptNet5 paper:
+Please do not forget to cite the ConceptNet5 paper:
 ```
 Robyn Speer, Joshua Chin, and Catherine Havasi. 2017. "ConceptNet 5.5: An Open Multilingual Graph of General Knowledge." In proceedings of AAAI 31.
 ```

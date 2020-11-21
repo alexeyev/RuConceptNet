@@ -59,7 +59,7 @@ class ConceptNet(object):
 
 if __name__ == "__main__":
     cn = ConceptNet()
-    print(cn.get_targets("красота"))
-    print(cn.get_sources("красота"))
+    print(cn.get_targets("алкоголь"))
+    print(cn.get_sources("йога"))
     print(cn.check_pair("человек", "зверь"))
     print(cn.check_pair("зверь", "человек"))
