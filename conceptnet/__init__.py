@@ -1,3 +1,4 @@
 # coding: utf-8
-from conceptnet.conceptnet import ConceptNet
-from conceptnet.compressor import Bundle, Sparse3DTensor
+from .sparse_representation import Sparse3DTensor
+from .compressor import Bundle
+from .conceptnet import ConceptNet

@@ -1,32 +1,34 @@
 # coding: utf-8
-import pickle
 import bz2
+import logging
+import pickle
 from collections import defaultdict
+from typing import List, Set, Tuple
 
 from compressor import Bundle
-from compressor import Sparse3DTensor
 
 
 class ConceptNet(object):
 
-    def __init__(self, filepath="data/russian-conceptnet.pickle.bz2"):
+    def __init__(self, filepath: str):
 
-        print("Reading archive...")
+        logging.debug("Reading archive...")
 
         with bz2.open(filepath, "rb") as rf:
-            bundle = pickle.load(rf)  # type: Bundle
+            bundle = pickle.load(rf)
 
-        self.v = bundle.v # type: dict
-        self.rv = bundle.rv # type: dict
+        self.v: dict = bundle.v
+        self.rv: dict = bundle.rv
         self.iv = {v: k for k, v in self.v.items()}
         self.irv = {v: k for k, v in self.rv.items()}
-        print("Vocabularies constructed.")
+        logging.debug("Vocabularies constructed.")
 
-        self.tensor = bundle.t  # type: Sparse3DTensor
+        self.tensor = bundle.t
 
-        print("All set up.")
+        logging.debug("All set up.")
 
-    def __get_stuff__(self, method, s):
+    def __get_stuff__(self, method, s: str) -> List[Tuple[str, Set[str]]]:
+
         if s in self.v:
             targets, relations = method(self.v[s])
             grouped = defaultdict(lambda: [])
@@ -38,16 +40,16 @@ class ConceptNet(object):
         else:
             return []
 
-    def get_targets(self, s):
+    def get_targets(self, s: str) -> List[Tuple[str, Set[str]]]:
         return self.__get_stuff__(self.tensor.row_nz, s)
 
-    def get_sources(self, s):
+    def get_sources(self, s: str) -> List[Tuple[str, Set[str]]]:
         return self.__get_stuff__(self.tensor.col_nz, s)
 
-    def check_pair(self, s, t):
+    def check_pair(self, s: str, t: str) -> [List[str], List[str]]:
 
         if not s in self.v or not t in self.v:
-            return []
+            return [], []
 
         direct = self.tensor.rowcol_nz(self.v[s], self.v[t])
         direct = [self.irv[d] for d in direct]
@@ -58,7 +60,8 @@ class ConceptNet(object):
 
 
 if __name__ == "__main__":
-    cn = ConceptNet()
+    logging.basicConfig(level=logging.DEBUG)
+    cn = ConceptNet("../data/russian-conceptnet.pickle.bz2")
     print(cn.get_targets("алкоголь"))
     print(cn.get_sources("йога"))
     print(cn.check_pair("человек", "зверь"))

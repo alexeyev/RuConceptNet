@@ -1,73 +1,27 @@
 # coding: utf-8
 
+import logging
 from functools import lru_cache
+from typing import Tuple
 
 import pandas as pd
-from scipy.sparse import coo_matrix
 from tqdm import tqdm
+
+from sparse_representation import Sparse3DTensor
 
 
 class Bundle(object):
-    def __init__(self, triplets, vocab, rel_vocab):
+    def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
         self.t = triplets
         self.v = vocab
         self.rv = rel_vocab
-
-
-class Sparse3DTensor(object):
-    """
-        Unrolling depths as rows using scipy's sparse matrix;
-        could be compressed even more since our case is a binary matrix one,
-        but I don't care
-    """
-
-    def __init__(self, shape, triples):
-        assert len(shape) == 3
-        matrix_shape = (shape[0], shape[1] * shape[2])
-        self.step = shape[2]
-        (rows_idx, cols_idx), vals = triples
-        new_cols_idx = cols_idx * self.step + vals
-        self.t = coo_matrix(([1.] * rows_idx.shape[0], (rows_idx, new_cols_idx)), shape=matrix_shape).tocsr()
-
-    def __getitem__(self, indices):
-        row, col, dep = indices
-        return self.t[row, col * self.step + dep]
-
-    def __setitem__(self, indices, value):
-        row, col, dep = indices
-        self.t[row, col * self.step + dep] = value
-
-    def __str__(self):
-        return str(self.t.todense())
-
-    def row_nz(self, ix):
-        """
-            Returns a list if indices of nonzero values along the row
-        """
-        _, nz = self.t[ix].nonzero()
-        row_indices = nz // self.step
-        depth_indices = nz % self.step
-        return row_indices, depth_indices
-
-    def col_nz(self, ix):
-        """
-            Returs a list of coordinates of nonzero values in a column
-        """
-        nz = self.t[:, ix * self.step:(ix + 1) * self.step].nonzero()
-        return nz
-
-    def rowcol_nz(self, row, col):
-        """
-            Returns a list of nonzero values along the depth axis
-        """
-        return self.t[row, col * self.step:(col + 1) * self.step].nonzero()[1]
 
 
 def assertions2triples(filepath="data/russian-conceptnet.tsv"):
     df_data = {"relation": [], "source": [], "target": []}
 
     @lru_cache(100000000)
-    def name(x):
+    def name(x: str) -> Tuple[str, str]:
         s = x.split("/")
         return s[2], s[3]
 
@@ -85,18 +39,15 @@ def assertions2triples(filepath="data/russian-conceptnet.tsv"):
 
 
 def triples2bundle(data: pd.DataFrame):
-
-    print("Triplets read.", data.shape)
+    logging.debug("Triplets read. " + str(data.shape))
 
     v = {k: i for i, k in enumerate(set(pd.concat([data["source"], data["target"]])))}
     rv = {rel: i for i, rel in enumerate(set(data["relation"]))}
-    print("Vocabularies constructed. Words:", len(v), "Relations types:", len(rv))
+    logging.debug("Vocabularies constructed. Words: %d Relations types: %d" % (len(v), len(rv)))
 
     rows_idx = data["source"].map(lambda x: v[x]).values
     cols_idx = data["target"].map(lambda x: v[x]).values
     vals = data["relation"].map(lambda x: rv[x]).values
-
-    print(rows_idx.shape, cols_idx.shape, vals.shape)
 
     tensor = Sparse3DTensor((len(v), len(v), len(rv)), ((rows_idx, cols_idx), vals))
 
@@ -105,11 +56,12 @@ def triples2bundle(data: pd.DataFrame):
 
 if __name__ == "__main__":
     import pickle
+    import bz2
 
     df_nice_triples = assertions2triples(filepath="../data/russian-conceptnet.tsv")
     bundle = triples2bundle(df_nice_triples)
 
-    with open("data/russian-conceptnet.pickle", "wb") as wf:
+    with bz2.open("../data/russian-conceptnet.pickle.bz2", "wb") as wf:
         pickle.dump(bundle, wf)
 
     print("All set up.")
