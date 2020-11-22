@@ -4,8 +4,14 @@ import logging
 import pickle
 from collections import defaultdict
 from typing import List, Set, Tuple
+from sparse_representation import Sparse3DTensor
 
-from compressor import Bundle
+
+class Bundle(object):
+    def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
+        self.t = triplets
+        self.v = vocab
+        self.rv = rel_vocab
 
 
 class ConceptNet(object):
@@ -13,6 +19,7 @@ class ConceptNet(object):
     def __init__(self, filepath: str):
 
         logging.debug("Reading archive...")
+        # from compressor import Bundle
 
         with bz2.open(filepath, "rb") as rf:
             bundle = pickle.load(rf)

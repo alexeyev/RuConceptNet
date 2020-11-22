@@ -8,13 +8,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from sparse_representation import Sparse3DTensor
-
-
-class Bundle(object):
-    def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
-        self.t = triplets
-        self.v = vocab
-        self.rv = rel_vocab
+from conceptnet import Bundle
 
 
 def assertions2triples(filepath="data/russian-conceptnet.tsv"):
