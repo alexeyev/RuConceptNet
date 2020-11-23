@@ -1,4 +1,5 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
+
 import bz2
 import logging
 import pickle
@@ -68,7 +69,7 @@ class ConceptNet(object):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    cn = ConceptNet("../data/russian-conceptnet.pickle.bz2")
+    cn = ConceptNet("data/russian-conceptnet.pickle.bz2")
     print(cn.get_targets("алкоголь"))
     print(cn.get_sources("йога"))
     print(cn.check_pair("человек", "зверь"))

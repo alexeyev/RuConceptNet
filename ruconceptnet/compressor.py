@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 import logging
 from functools import lru_cache
@@ -52,10 +52,10 @@ if __name__ == "__main__":
     import pickle
     import bz2
 
-    df_nice_triples = assertions2triples(filepath="../data/russian-conceptnet.tsv")
+    df_nice_triples = assertions2triples(filepath="data/russian-conceptnet.tsv")
     bundle = triples2bundle(df_nice_triples)
 
-    with bz2.open("../data/russian-conceptnet.pickle.bz2", "wb") as wf:
+    with bz2.open("data/russian-conceptnet.pickle.bz2", "wb") as wf:
         pickle.dump(bundle, wf)
 
     print("All set up.")
