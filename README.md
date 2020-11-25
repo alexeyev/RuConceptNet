@@ -2,10 +2,19 @@
 ConceptNet 5.7 (Russian part) extraction scripts + fast access to relations. Note: a simple modification of the 
 preprocessing script allows to build a queryable graph of **any other subset of ConceptNet**.
 
-### Preparations
 
-Please see the `prepare_data.sh` script. We get the Russian-Russian pairs of nodes with simple `grep` and build
-a 3-dimensional array (source, target, relation) stored as a single sparse SciPy matrix.
+![Python 3x](https://img.shields.io/badge/python-3.x-blue.svg)
+[![PyPI version][pypi_badge]][pypi_link]
+[![Downloads](https://pepy.tech/badge/ruconceptnet)](https://pepy.tech/project/ruconceptnet)
+
+[pypi_badge]: https://badge.fury.io/py/ruconceptnet.svg
+[pypi_link]: https://pypi.python.org/pypi/ruconceptnet
+
+### Installation
+
+```
+pip install ruconceptnet
+```
 
 ### Usage
 
@@ -25,6 +34,12 @@ a 3-dimensional array (source, target, relation) stored as a single sparse SciPy
 >>> cn.check_pair("зверь", "человек")
 ([], ['DistinctFrom'])
 ```
+
+### Preparations for customization
+
+Please see the `prepare_data.sh` script. We get the Russian-Russian pairs of nodes with simple `grep` and build
+a 3-dimensional array (source, target, relation) stored as a single sparse SciPy matrix.
+
 
 ## Citing
 

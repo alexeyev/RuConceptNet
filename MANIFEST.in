@@ -1,2 +1,3 @@
 include README.md
 include ruconceptnet/data/*bz2
+include ruconceptnet/data/__init__.py
