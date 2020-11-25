@@ -22,11 +22,12 @@ pip install ruconceptnet
 >>> from ruconceptnet import ConceptNet
 >>> cn = ConceptNet()
 >>> cn.get_targets("алкоголь")
-[('этиловый_спирт', {'Synonym'}), ('спиртной_напиток', {'Synonym'}), ('алкогольный', {'RelatedTo'}), ('алкоголик', {'RelatedTo'}), ('спирт', {'Synonym'}), ('алкоголизация', {
-'RelatedTo'})]
+[('этиловый_спирт', {'Synonym'}), ('спиртной_напиток', {'Synonym'}), ('алкогольный', {'RelatedTo'}), 
+('алкоголик', {'RelatedTo'}), ('спирт', {'Synonym'}), ('алкоголизация', {'RelatedTo'})]
 
 >>> cn.get_sources("йога")
-[('йоги', {'FormOf'}), ('йогу', {'FormOf'}), ('йогический', {'RelatedTo'}), ('йогою', {'FormOf'}), ('йогой', {'FormOf'}), ('йог', {'RelatedTo'}), ('йоге', {'FormOf'})]
+[('йоги', {'FormOf'}), ('йогу', {'FormOf'}), ('йогический', {'RelatedTo'}), ('йогою', {'FormOf'}), 
+('йогой', {'FormOf'}), ('йог', {'RelatedTo'}), ('йоге', {'FormOf'})]
 
 >>> cn.check_pair("человек", "зверь")
 (['DistinctFrom'], [])
