@@ -44,12 +44,26 @@ a 3-dimensional array (source, target, relation) stored as a single sparse SciPy
 
 ## Citing
 
-Please do not forget to cite the ConceptNet5 paper:
+Please do not forget to cite the ConceptNet5 paper.
 ```
-Robyn Speer, Joshua Chin, and Catherine Havasi. 2017. "ConceptNet 5.5: An Open Multilingual Graph of General Knowledge." In proceedings of AAAI 31.
+@article{speer2016conceptnet,
+  title={Conceptnet 5.5: An open multilingual graph of general knowledge},
+  author={Speer, Robyn and Chin, Joshua and Havasi, Catherine},
+  journal={arXiv preprint arXiv:1612.03975},
+  year={2016}
+}
 ```
 
 Citing the repository is greatly appreciated as well, if you use this work.
+
+```
+@misc{ruconceptnet2020alekseev,
+  title     = {{alexeyev/RuConceptNet: /ru/ConceptNet5.7 Python wrapper }},
+  year      = {2020},
+  url       = {https://github.com/alexeyev/RuConceptNet},
+  language  = {english}
+}
+```
 
 ## License
 
