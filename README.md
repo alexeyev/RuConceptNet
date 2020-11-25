@@ -19,7 +19,7 @@ pip install ruconceptnet
 ### Usage
 
 ```
->>> from conceptnet import ConceptNet
+>>> from ruconceptnet import ConceptNet
 >>> cn = ConceptNet()
 >>> cn.get_targets("алкоголь")
 [('этиловый_спирт', {'Synonym'}), ('спиртной_напиток', {'Synonym'}), ('алкогольный', {'RelatedTo'}), ('алкоголик', {'RelatedTo'}), ('спирт', {'Synonym'}), ('алкоголизация', {
