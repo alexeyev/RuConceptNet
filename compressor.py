@@ -7,8 +7,8 @@ from typing import Tuple
 import pandas as pd
 from tqdm import tqdm
 
-from sparse_representation import Sparse3DTensor
-from conceptnet import Bundle
+from ruconceptnet.sparse_representation import Sparse3DTensor
+from ruconceptnet.conceptnet import Bundle
 
 
 def assertions2triples(filepath="data/russian-conceptnet.tsv"):
@@ -52,10 +52,10 @@ if __name__ == "__main__":
     import pickle
     import bz2
 
-    df_nice_triples = assertions2triples(filepath="data/russian-conceptnet.tsv")
+    df_nice_triples = assertions2triples(filepath="ruconceptnet/data/russian-conceptnet.tsv")
     bundle = triples2bundle(df_nice_triples)
 
-    with bz2.open("data/russian-conceptnet.pickle.bz2", "wb") as wf:
+    with bz2.open("ruconceptnet/data/russian-conceptnet.pickle.bz2", "wb") as wf:
         pickle.dump(bundle, wf)
 
     print("All set up.")

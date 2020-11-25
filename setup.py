@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="ruconceptnet",
     packages=setuptools.find_packages(),
-    version="0.0.1",
+    version="0.0.6",
     description="Russian part of ConceptNet5.7 graph, fast access to relations.",
     long_description=long_description,
     long_description_content_type="text/markdown",

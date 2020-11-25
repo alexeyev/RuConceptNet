@@ -8,3 +8,4 @@
 *.pickle
 build
 dist
+*.egg-info/

@@ -5,11 +5,13 @@ import logging
 import pickle
 from collections import defaultdict
 from typing import List, Set, Tuple
-from sparse_representation import Sparse3DTensor
+
+from ruconceptnet.sparse_representation import Sparse3DTensor
 
 
 class Bundle(object):
     """ Minimal object storing ConceptNet data we provide access to """
+
     def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
         self.t = triplets
         self.v = vocab
@@ -18,12 +20,26 @@ class Bundle(object):
 
 class ConceptNet(object):
 
-    def __init__(self, filepath: str):
+    def __init__(self, filepath: str = None):
 
         logging.debug("Reading archive...")
 
-        with bz2.open(filepath, "rb") as rf:
-            bundle = pickle.load(rf)
+        if filepath is None:
+
+            try:
+                import importlib.resources as pkg_resources
+            except ImportError:
+                # Trying backported to PY<37 `importlib_resources`.
+                import importlib_resources as pkg_resources
+
+            from . import data
+
+            with pkg_resources.path(data, "russian-conceptnet.pickle.bz2") as filepath:
+                with bz2.open(filepath, "rb") as rf:
+                    bundle = pickle.load(rf)
+        else:
+            with bz2.open(filepath, "rb") as rf:
+                bundle = pickle.load(rf)
 
         self.v: dict = bundle.v
         self.rv: dict = bundle.rv
@@ -69,7 +85,7 @@ class ConceptNet(object):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    cn = ConceptNet("data/russian-conceptnet.pickle.bz2")
+    cn = ConceptNet()
     print(cn.get_targets("алкоголь"))
     print(cn.get_sources("йога"))
     print(cn.check_pair("человек", "зверь"))

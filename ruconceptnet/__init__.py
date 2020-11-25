@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import meta
-from .sparse_representation import Sparse3DTensor
-from .conceptnet import ConceptNet, Bundle
+from .conceptnet import ConceptNet
 
 __version__ = meta.version
 __author__ = meta.authors[0]
