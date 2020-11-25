@@ -54,7 +54,7 @@ Please do not forget to cite the ConceptNet5 paper.
 }
 ```
 
-Citing the repository is greatly appreciated as well, if you use this work.
+Citing the repository is not necessary, but greatly appreciated as well, if you use this work.
 
 ```
 @misc{ruconceptnet2020alekseev,
