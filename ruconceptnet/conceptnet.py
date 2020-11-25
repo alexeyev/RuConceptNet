@@ -9,6 +9,7 @@ from sparse_representation import Sparse3DTensor
 
 
 class Bundle(object):
+    """ Minimal object storing ConceptNet data we provide access to """
     def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
         self.t = triplets
         self.v = vocab
@@ -20,7 +21,6 @@ class ConceptNet(object):
     def __init__(self, filepath: str):
 
         logging.debug("Reading archive...")
-        # from compressor import Bundle
 
         with bz2.open(filepath, "rb") as rf:
             bundle = pickle.load(rf)

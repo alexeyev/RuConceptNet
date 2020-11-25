@@ -6,3 +6,5 @@
 *.csv
 *.tsv
 *.pickle
+build
+dist
