@@ -1,5 +1,5 @@
-# RussianConceptNet
-ConceptNet 5.7 (Russian part) extraction scripts + fast access to relations. Note: a simple modification of the 
+# /ru/ConceptNet
+ConceptNet 5.7 (Russian part) extraction scripts + fast API object to access the relations. Note: a simple modification of the 
 preprocessing script allows to build a queryable graph of **any other subset of ConceptNet**.
 
 
