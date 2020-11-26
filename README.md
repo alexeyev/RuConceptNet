@@ -47,15 +47,15 @@ a 3-dimensional array (source, target, relation) stored as a single sparse SciPy
 Please do not forget to cite the ConceptNet5 paper.
 ```
 @inproceedings{10.5555/3298023.3298212,
-author = {Speer, Robyn and Chin, Joshua and Havasi, Catherine},
-title = {ConceptNet 5.5: An Open Multilingual Graph of General Knowledge},
-year = {2017},
-publisher = {AAAI Press},
-booktitle = {Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence},
-pages = {4444–4451},
-numpages = {8},
-location = {San Francisco, California, USA},
-series = {AAAI'17}
+  author = {Speer, Robyn and Chin, Joshua and Havasi, Catherine},
+  title = {ConceptNet 5.5: An Open Multilingual Graph of General Knowledge},
+  year = {2017},
+  publisher = {AAAI Press},
+  booktitle = {Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence},
+  pages = {4444–4451},
+  numpages = {8},
+  location = {San Francisco, California, USA},
+  series = {AAAI'17}
 }
 ```
 
