@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from . import meta
-from .conceptnet import ConceptNet
+from .conceptnet import ConceptNet as ConceptNet
 
 __version__ = meta.version
 __author__ = meta.authors[0]

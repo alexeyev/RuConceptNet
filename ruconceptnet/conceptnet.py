@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-
 import bz2
 import logging
 import pickle
 from collections import defaultdict
-from typing import List, Set, Tuple
 
 from ruconceptnet.sparse_representation import Sparse3DTensor
 
 
-class Bundle(object):
-    """ Minimal object storing ConceptNet data we provide access to """
+class Bundle:
+    """Minimal object storing ConceptNet data we provide access to"""
 
     def __init__(self, triplets: Sparse3DTensor, vocab: dict, rel_vocab: dict):
         self.t = triplets
@@ -18,14 +15,12 @@ class Bundle(object):
         self.rv = rel_vocab
 
 
-class ConceptNet(object):
-
+class ConceptNet:
     def __init__(self, filepath: str = None):
 
         logging.debug("Reading archive...")
 
         if filepath is None:
-
             try:
                 import importlib.resources as pkg_resources
             except ImportError:
@@ -34,9 +29,11 @@ class ConceptNet(object):
 
             from . import data
 
-            with pkg_resources.path(data, "russian-conceptnet.pickle.bz2") as filepath:
-                with bz2.open(filepath, "rb") as rf:
-                    bundle = pickle.load(rf)
+            with (
+                pkg_resources.path(data, "russian-conceptnet.pickle.bz2") as filepath,
+                bz2.open(filepath, "rb") as rf,
+            ):
+                bundle = pickle.load(rf)
         else:
             with bz2.open(filepath, "rb") as rf:
                 bundle = pickle.load(rf)
@@ -51,7 +48,7 @@ class ConceptNet(object):
 
         logging.debug("All set up.")
 
-    def __get_stuff__(self, method, s: str) -> List[Tuple[str, Set[str]]]:
+    def __get_stuff__(self, method, s: str) -> list[tuple[str, set[str]]]:
 
         if s in self.v:
             targets, relations = method(self.v[s])
@@ -64,15 +61,15 @@ class ConceptNet(object):
         else:
             return []
 
-    def get_targets(self, s: str) -> List[Tuple[str, Set[str]]]:
+    def get_targets(self, s: str) -> list[tuple[str, set[str]]]:
         return self.__get_stuff__(self.tensor.row_nz, s)
 
-    def get_sources(self, s: str) -> List[Tuple[str, Set[str]]]:
+    def get_sources(self, s: str) -> list[tuple[str, set[str]]]:
         return self.__get_stuff__(self.tensor.col_nz, s)
 
-    def check_pair(self, s: str, t: str) -> [List[str], List[str]]:
+    def check_pair(self, s: str, t: str) -> [list[str], list[str]]:
 
-        if not s in self.v or not t in self.v:
+        if s not in self.v or t not in self.v:
             return [], []
 
         direct = self.tensor.rowcol_nz(self.v[s], self.v[t])
