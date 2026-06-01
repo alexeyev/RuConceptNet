@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 package = "ruconceptnet"
 version = "0.0.2"
 authors = ["Anton Alekseev"]

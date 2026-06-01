@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from ruconceptnet import ConceptNet
 
 cn = ConceptNet()
