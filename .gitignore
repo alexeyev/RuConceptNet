@@ -9,6 +9,8 @@
 build
 dist
 *.egg-info/
+*.txt
+
 # Python artifacts
 __pycache__/
 *.py[cod]
