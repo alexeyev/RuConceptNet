@@ -11,6 +11,7 @@ import bz2
 import pickle
 
 import pandas as pd
+import pytest
 
 from compressor import triples2bundle
 from ruconceptnet.conceptnet import Bundle
@@ -100,3 +101,36 @@ class TestBundlePickleRoundtrip:
         with bz2.open(path, "rb") as fh:
             loaded = pickle.load(fh)
         assert loaded.t.t.shape == bundle.t.t.shape
+
+
+class TestTriples2BundleWeights:
+    def test_missing_weight_column_defaults_to_one(self):
+        # _minimal_df has no weight column -> should not raise
+        bundle = triples2bundle(_minimal_df())
+        assert isinstance(bundle, Bundle)
+
+    def test_weight_propagated_into_tensor(self):
+        df = pd.DataFrame(
+            {
+                "relation": ["Synonym"],
+                "source": ["кошка"],
+                "target": ["кот"],
+                "weight": [4.2],
+            }
+        )
+        bundle = triples2bundle(df)
+        s, t, r = bundle.v["кошка"], bundle.v["кот"], bundle.rv["Synonym"]
+        assert bundle.t[s, t, r] == pytest.approx(4.2)
+
+    def test_duplicate_edges_keep_max_weight(self):
+        df = pd.DataFrame(
+            {
+                "relation": ["Synonym", "Synonym"],
+                "source": ["а", "а"],
+                "target": ["б", "б"],
+                "weight": [1.0, 5.0],
+            }
+        )
+        bundle = triples2bundle(df)
+        s, t, r = bundle.v["а"], bundle.v["б"], bundle.rv["Synonym"]
+        assert bundle.t[s, t, r] == pytest.approx(5.0)

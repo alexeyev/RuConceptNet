@@ -1,5 +1,7 @@
 from . import meta
-from .conceptnet import ConceptNet as ConceptNet
+from .conceptnet import ConceptNet
+
+__all__ = ["ConceptNet"]
 
 __version__ = meta.version
 __author__ = meta.authors[0]

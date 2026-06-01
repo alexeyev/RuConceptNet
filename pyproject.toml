@@ -1,5 +1,63 @@
+[build-system]
+requires = ["setuptools>=77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruconceptnet"
+description = "Russian part of the ConceptNet 5.7 graph with fast access to relations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Anton Alekseev", email = "anton.m.alexeyev@gmail.com" }]
+keywords = ["nlp", "knowledge graph", "russian language", "conceptnet"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+dynamic = ["version"]
+dependencies = [
+    "numpy>=1.21",
+    "pandas>=1.3.0",
+    "scipy>=1.7.0",
+    "tqdm>=4.62.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/alexeyev/RuConceptNet"
+Repository = "https://github.com/alexeyev/RuConceptNet"
+Issues = "https://github.com/alexeyev/RuConceptNet/issues"
+
+[tool.setuptools.packages.find]
+include = ["ruconceptnet*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ruconceptnet.meta.version" }
+
+[tool.setuptools.package-data]
+"ruconceptnet" = ["py.typed"]
+"ruconceptnet.data" = ["*.bz2"]
+
+
 [tool.ruff]
-target-version = "py39"
+target-version = "py310"
 line-length = 100
 
 [tool.ruff.lint]
@@ -14,8 +72,7 @@ select = [
     "SIM", # flake8-simplify
 ]
 ignore = [
-    "E501",  # line-too-long — enforced by formatter instead
-    "B006",  # mutable default args — not present here, but preemptive
+    "E501",   # line-too-long — handled by the formatter
     "SIM108", # ternary suggestion — sometimes hurts readability
 ]
 
@@ -36,7 +93,6 @@ addopts = "-v"
 source = ["ruconceptnet", "compressor"]
 omit = [
     "*/tests/*",
-    "setup.py",
     "example.py",
 ]
 

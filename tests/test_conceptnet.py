@@ -156,3 +156,52 @@ class TestConceptNetConstruction:
 
         with pytest.raises(FileNotFoundError):
             ConceptNet(filepath="/nonexistent/path/file.bz2")
+
+
+# ---------------------------------------------------------------------------
+# weights (with_weights=True)
+# ---------------------------------------------------------------------------
+
+
+class TestGetTargetsWithWeights:
+    def test_returns_dict_per_target(self, cn):
+        targets = dict(cn.get_targets("алкоголь", with_weights=True))
+        assert isinstance(targets["спирт"], dict)
+
+    def test_correct_weight(self, cn):
+        targets = dict(cn.get_targets("алкоголь", with_weights=True))
+        assert targets["спирт"]["Synonym"] == 2.5
+        assert targets["алкоголизм"]["RelatedTo"] == 1.0
+
+    def test_default_still_returns_sets(self, cn):
+        targets = dict(cn.get_targets("алкоголь"))
+        assert isinstance(targets["спирт"], set)
+
+    def test_unknown_word_empty(self, cn):
+        assert cn.get_targets("несуществующее", with_weights=True) == []
+
+
+class TestGetSourcesWithWeights:
+    def test_correct_weight(self, cn):
+        sources = dict(cn.get_sources("спирт", with_weights=True))
+        assert sources["алкоголь"]["Synonym"] == 2.5
+
+    def test_formof_weight(self, cn):
+        sources = dict(cn.get_sources("йоги", with_weights=True))
+        assert sources["йога"]["FormOf"] == 3.0
+
+
+class TestCheckPairWithWeights:
+    def test_direct_weight(self, cn):
+        direct, reverse = cn.check_pair("человек", "зверь", with_weights=True)
+        assert direct["DistinctFrom"] == 0.5
+        assert reverse == {}
+
+    def test_reverse_weight(self, cn):
+        direct, reverse = cn.check_pair("зверь", "человек", with_weights=True)
+        assert direct == {}
+        assert reverse["DistinctFrom"] == 0.5
+
+    def test_unknown_returns_empty_dicts(self, cn):
+        direct, reverse = cn.check_pair("нет", "такого", with_weights=True)
+        assert direct == {} and reverse == {}

@@ -3,7 +3,8 @@ ConceptNet 5.7 (Russian part) extraction scripts + fast API object to access the
 preprocessing script allows to build a queryable graph of **any other subset of ConceptNet**.
 
 
-![Python 3x](https://img.shields.io/badge/python-3.x-blue.svg)
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+[![CI](https://github.com/alexeyev/RuConceptNet/actions/workflows/ci.yml/badge.svg)](https://github.com/alexeyev/RuConceptNet/actions/workflows/ci.yml)
 [![PyPI version][pypi_badge]][pypi_link]
 [![Downloads](https://pepy.tech/badge/ruconceptnet)](https://pepy.tech/project/ruconceptnet)
 
@@ -36,11 +37,45 @@ pip install ruconceptnet
 ([], ['DistinctFrom'])
 ```
 
+#### Edge weights
+
+Every relation carries ConceptNet's `weight` (assertion confidence). Pass
+`with_weights=True` to get `{relation: weight}` mappings instead of plain sets:
+
+```
+>>> cn.get_targets("алкоголь", with_weights=True)
+[('спирт', {'Synonym': 2.0}), ('алкоголизм', {'RelatedTo': 3.5}), ...]
+
+>>> cn.check_pair("человек", "зверь", with_weights=True)
+({'DistinctFrom': 0.5}, {})
+```
+
+When several assertions share the same `(source, target, relation)`, the
+strongest (maximum) weight is kept. Data built before weights were added
+reports `1.0` for every edge.
+
 ### Preparations for customization
 
 Please see the `prepare_data.sh` script. We get the Russian-Russian pairs of nodes with simple `grep` and build
 a 3-dimensional array (source, target, relation) stored as a single sparse SciPy matrix.
 
+
+## Development
+
+```bash
+# install the package together with the development dependencies
+pip install -e ".[dev]"
+
+# run the test suite with coverage (threshold enforced at 80%)
+pytest
+
+# lint and format
+ruff check .
+ruff format .
+
+# optional: enable the git hooks
+pre-commit install
+```
 
 ## Citing
 

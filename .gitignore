@@ -1,4 +1,6 @@
 .idea/
+
+# Data artifacts (downloaded or generated, not committed)
 *.gz
 *.zip
 *.7z
@@ -6,17 +8,17 @@
 *.csv
 *.tsv
 *.pickle
-build
-dist
-*.egg-info/
-*.txt
 
-# Python artifacts
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Python caches
 __pycache__/
 *.py[cod]
 *.pyo
-.eggs/
-*.egg-info/
 
 # Testing & coverage
 .pytest_cache/
@@ -24,10 +26,11 @@ __pycache__/
 coverage.xml
 htmlcov/
 
+# Type / lint caches
+.mypy_cache/
+.ruff_cache/
+
 # Virtual environments
 .venv/
 venv/
 env/
-
-# Mypy
-.mypy_cache/
