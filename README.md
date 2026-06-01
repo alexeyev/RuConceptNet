@@ -1,5 +1,5 @@
-# RussianConceptNet
-ConceptNet 5.7 (Russian part) extraction scripts + fast access to relations. Note: a simple modification of the 
+# /ru/ConceptNet
+ConceptNet 5.7 (Russian part) extraction scripts + fast API object to access the relations. Note: a simple modification of the 
 preprocessing script allows to build a queryable graph of **any other subset of ConceptNet**.
 
 
@@ -44,12 +44,31 @@ a 3-dimensional array (source, target, relation) stored as a single sparse SciPy
 
 ## Citing
 
-Please do not forget to cite the ConceptNet5 paper:
+Please do not forget to cite the ConceptNet5 paper.
 ```
-Robyn Speer, Joshua Chin, and Catherine Havasi. 2017. "ConceptNet 5.5: An Open Multilingual Graph of General Knowledge." In proceedings of AAAI 31.
+@inproceedings{10.5555/3298023.3298212,
+  author = {Speer, Robyn and Chin, Joshua and Havasi, Catherine},
+  title = {ConceptNet 5.5: An Open Multilingual Graph of General Knowledge},
+  year = {2017},
+  publisher = {AAAI Press},
+  booktitle = {Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence},
+  pages = {4444–4451},
+  numpages = {8},
+  location = {San Francisco, California, USA},
+  series = {AAAI'17}
+}
 ```
 
-Citing the repository is greatly appreciated as well, if you use this work.
+Citing the repository is not necessary, but greatly appreciated as well, if you use this work.
+
+```
+@misc{ruconceptnet2020alekseev,
+  title     = {{alexeyev/RuConceptNet: /ru/ConceptNet5.7 Python wrapper }},
+  year      = {2020},
+  url       = {https://github.com/alexeyev/RuConceptNet},
+  language  = {english}
+}
+```
 
 ## License
 
